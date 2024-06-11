@@ -7,6 +7,12 @@ all: help
 install:
 		vagrant up
 
+update:
+		vagrant provision
+
+remove:
+		vagrant destroy
+
 vm: 
 		$(shell ./scripts/ssh-and-start-vm.sh)
 
@@ -16,5 +22,7 @@ vm-stop:
 help:
 	@echo '----'
 	@echo 'make install				- Install VirtualMachine with Docker and LangFlow'
+	@echo 'make update				- Update the Vagrant VirtualMachine'
+	@echo 'make remove				- Remove this VirtualMachine'
 	@echo 'make vm					- Connect to VirtualBox via SSH and (if required) starts VirtualBox first'
 	@echo 'make vm-stop				- Stops VirtualBox'
