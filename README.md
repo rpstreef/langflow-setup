@@ -7,7 +7,7 @@
 - Create an `.env` file in this directory, and add your OpenAI key into it as follows:
   - `OPENAI_API_KEY=<YOUR_KEY>`
 - `vagrant up`; This starts installing the VirtualBox VM with Docker and LangFlow on it.
-  - When asked during installation; choose your network card that is connected to your Wifi network.
+  - When asked; `Which interface should the network bridge to?` Choose the card that is connected to your internet.
 - `make vm`. (Requires Linux or compatible OS) to (start) connect to the VM.
 
 ## How to use LangFlow:

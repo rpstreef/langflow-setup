@@ -15,6 +15,9 @@ Vagrant.configure("2") do |config|
   config.vm.define "langflow" do |langflow|
     config.vm.box = "generic/ubuntu2204"
 
+    # copies the current folder to the VM
+    config.vm.synced_folder ".", "/home/vagrant/langflow"
+
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
@@ -58,16 +61,11 @@ Vagrant.configure("2") do |config|
       sudo usermod -aG docker vagrant 
     SHELL
 
-    # Git clone langflow-setup, and run the containers
-    config.vm.provision "shell",  privileged: false, inline: <<-SHELL
+    # Run the containers, and register as service
+    config.vm.provision "shell", inline: <<-SHELL
       sudo newgrp docker
-      git clone https://github.com/rpstreef/langflow-setup /home/vagrant/langflow
       cd /home/vagrant/langflow
       docker-compose up -d
-    SHELL
-
-    # Make sure the dockers always run on boot
-    config.vm.provision "shell", inline: <<-SHELL
       sudo bash -c 'echo "[Unit]
       Description=Docker Compose Application Service
       After=docker.service
